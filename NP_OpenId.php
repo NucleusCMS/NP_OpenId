@@ -109,7 +109,7 @@ class NP_OpenId extends NucleusPlugin {
 		$this->store = new Auth_OpenID_FileStore($store_path);
 */
 		// include language file for this plugin 
-		$language = ereg_replace( '[\\|/]', '', getLanguageName()); 
+		$language = str_replace( array('/','\\'), '', getLanguageName()); 
 		if (file_exists($this->getDirectory().'language/'.$language.'.php')) 
 			@ include_once($this->getDirectory().'language/'.$language.'.php');
 		else
