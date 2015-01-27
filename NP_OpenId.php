@@ -325,7 +325,8 @@ class NP_OpenId extends NucleusPlugin {
 			$member->setCookieKey(md5($member->getCookieKey().$CONF['secureCookieKeyIP']));
 			$member->write();
 		}
-		$manager->notify('LoginSuccess', array('member' => &$member) );
+		$params = array('member' => &$member);
+		$manager->notify('LoginSuccess', $params );
 		
 		$this->_info('Login local account :' . $member->getDisplayName() );
 		ACTIONLOG::add(INFO, 'Login successful for '.$member->getDisplayName().' (sharedpc=0, OpenId)');
@@ -450,7 +451,8 @@ class NP_OpenId extends NucleusPlugin {
 		if( $member->isLoggedIn() ) return;
 		
 		$externalauth = array ( 'source' => $this->getName() );
-		$manager->notify('ExternalAuth', array ('externalauth' => &$externalauth));
+		$params = array ('externalauth' => &$externalauth);
+		$manager->notify('ExternalAuth', $params);
 		if (isset($externalauth['result']) && $externalauth['result'] == true) return;
 		
 		$te = $this->_getTemplateEngine();
@@ -498,7 +500,8 @@ class NP_OpenId extends NucleusPlugin {
 		}
 		
 		$externalauth = array ( 'source' => $this->getName() );
-		$manager->notify('ExternalAuth', array ('externalauth' => &$externalauth));
+		$params = array ('externalauth' => &$externalauth);
+		$manager->notify('ExternalAuth', $params);
 		if (isset($externalauth['result']) && $externalauth['result'] == true) return;
 
 		$this->isLoggedin();
@@ -509,7 +512,8 @@ class NP_OpenId extends NucleusPlugin {
 		if( $member->isLoggedIn() ) return;
 		
 		$externalauth = array ( 'source' => $this->getName() );
-		$manager->notify('ExternalAuth', array ('externalauth' => &$externalauth));
+		$params = array ('externalauth' => &$externalauth);
+		$manager->notify('ExternalAuth', $params);
 		if (isset($externalauth['result']) && $externalauth['result'] == true) return;
 		
 		switch ($data['type']) {
